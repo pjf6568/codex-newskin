@@ -111,6 +111,17 @@ never touched.
 
 To contribute a preset, see [`presets/README.md`](./presets/README.md).
 
+## Sync a project preset
+
+After adding or editing a `preset-*` directory in this project, sync it directly
+to the current user's Newskin library and apply it—no reinstall required:
+
+```bash
+./scripts/sync-preset-macos.sh --id preset-yangyue
+```
+
+Use `--no-apply` to update the saved theme without changing the active theme.
+
 ## Image guidelines
 
 - PNG / JPEG / HEIC / TIFF / WebP (macOS readable)

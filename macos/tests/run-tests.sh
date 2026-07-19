@@ -177,6 +177,12 @@ fi
   [ "$seeded" -eq 4 ] || exit 1
 ' _ "$ROOT"
 
+SYNC_HOME="$TMP/sync-preset-home"
+/usr/bin/env HOME="$SYNC_HOME" NODE="$NODE" \
+  "$ROOT/scripts/sync-preset-macos.sh" --id preset-yangyue --no-apply >/dev/null
+[ -f "$SYNC_HOME/Library/Application Support/CodexNewskinStudio/themes/preset-yangyue/theme.json" ]
+[ -f "$SYNC_HOME/Library/Application Support/CodexNewskinStudio/themes/preset-yangyue/background.mp4" ]
+
 # Theme switches stage files and publish theme.json last, preserving a complete
 # active pack while the watcher is running.
 SWITCH_HOME="$TMP/switch-home"
