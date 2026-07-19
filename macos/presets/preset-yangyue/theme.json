@@ -17,16 +17,16 @@
     "immersive": true
   },
   "colors": {
-    "background": "#0d1220",
-    "panel": "#151c2d",
-    "panelAlt": "#202a42",
-    "accent": "#8da9e8",
-    "accentAlt": "#bdd0ff",
-    "secondary": "#6f87c2",
-    "highlight": "#b8c7f4",
-    "text": "#edf2ff",
-    "muted": "#aebad8",
-    "line": "rgba(141, 169, 232, .30)"
+    "background": "#1d100c",
+    "panel": "#2b1711",
+    "panelAlt": "#43251b",
+    "accent": "#e7aa70",
+    "accentAlt": "#ffd3a4",
+    "secondary": "#c98970",
+    "highlight": "#efbf97",
+    "text": "#fff0df",
+    "muted": "#d8af96",
+    "line": "rgba(231, 170, 112, .30)"
   },
   "home": {
     "enabled": true,
@@ -40,4 +40,3 @@
     ]
   }
 }
-
