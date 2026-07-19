@@ -25,12 +25,12 @@ assert.doesNotMatch(
   /background-image:\s*var\(--newskin-art\),\s*var\(--newskin-art\)/,
   "The home hero must not stack duplicate copies of the selected image.",
 );
-assert.match(template, /document\.createElement\("video"\)[\s\S]{0,500}video\.muted\s*=\s*true[\s\S]{0,180}video\.loop\s*=\s*true/,
+assert.match(template, /document\.createElement\("video"\)[\s\S]{0,1000}video\.muted\s*=\s*true[\s\S]{0,180}video\.loop\s*=\s*true/,
   "Video themes must render as muted, looping native video elements rather than CSS backgrounds.");
 assert.match(template, /video\.pause\(\)[\s\S]{0,180}video\?\.remove\(\)/,
   "Video cleanup must stop and remove the background media element.");
-assert.match(template, /const videoHost = document\.querySelector\("main\.main-surface"\) \|\| document\.body;[\s\S]{0,520}video\.parentElement !== videoHost/,
-  "Video must remain in the main content surface so its lifecycle follows Codex route changes.");
+assert.match(template, /const videoHost = document\.body \|\| document\.documentElement;[\s\S]{0,520}video\.parentElement !== videoHost/,
+  "Video must be a fixed app-level layer behind the main-surface mask, rather than a descendant the mask cannot blur.");
 assert.match(
   template,
   /if \(!root\.classList\.contains\("codex-newskin"\)\) root\.classList\.add\("codex-newskin"\);[\s\S]{0,220}root\.classList\.contains\("newskin-video-theme"\) !== VIDEO_THEME/,
@@ -38,26 +38,20 @@ assert.match(
 );
 assert.match(template, /const ensureVideoControls = \(root\) => \{[\s\S]{0,2800}range\.type = "range"[\s\S]{0,900}面板不透明度/,
   "Video themes must expose persistent range controls for blur and panel opacity.");
-assert.match(template, /VIDEO_THEME && node\.matches\?\.\("\.composer-surface-chrome"\)\) return "videoComposer"/,
-  "The inline composer surface token must be video-aware so it cannot pin the video opacity slider at a fixed value.");
-assert.match(template, /videoComposer:\s*`rgb\(\$\{raisedRgb\} \/ var\(\$\{VIDEO_PANEL_OPACITY_PROPERTY\}, 72%\)\)`/,
-  "The video composer token must read the same opacity custom property as the slider.");
 assert.match(template, /const positionVideoControls = \(control\) => \{[\s\S]{0,2400}minimumControlsWidth[\s\S]{0,2400}--newskin-video-controls-width[\s\S]{0,2400}above-composer[\s\S]{0,2400}--newskin-video-controls-bottom/,
   "Video controls must shrink into the usable space beside the composer, then move above it only when no usable side space remains.");
 assert.match(css, /newskin-video-theme main\.main-surface\s*\{[\s\S]{0,360}blur\(var\(--newskin-video-blur, 12px\)\)/,
   "The video main content surface must read blur strength from the slider-controlled custom property.");
-assert.match(css, /newskin-video-theme \.composer-surface-chrome\s*\{[\s\S]{0,360}blur\(var\(--newskin-video-blur, 12px\)\)/,
-  "The video composer must read blur strength from the slider-controlled custom property.");
+assert.doesNotMatch(css, /newskin-video-theme \.composer-surface-chrome\s*\{[\s\S]{0,360}newskin-video-blur/,
+  "Video controls must not alter the composer; the main content surface is the video mask.");
 assert.doesNotMatch(css, /newskin-video-theme main\.main-surface,\s*html\.codex-newskin\.newskin-video-theme aside\.app-shell-left-panel/,
   "Video controls must not alter the sidebar; they apply only to content surfaces.");
-assert.match(css, /main\.main-surface > video#codex-newskin-video\.newskin-video-background\s*\{[\s\S]{0,180}position:\s*absolute;[\s\S]{0,180}z-index:\s*0;/,
-  "Video must be layered inside the main content surface.");
+assert.match(css, /video#codex-newskin-video\.newskin-video-background\s*\{[\s\S]{0,180}position:\s*fixed;[\s\S]{0,180}z-index:\s*0;/,
+  "Video must be a fixed app-level layer behind the main-surface mask.");
 assert.match(css, /newskin-video-theme \.newskin-home > div:not\(\.newskin-ip-layer\)\s*\{[\s\S]{0,120}padding-top:\s*0 !important;/,
   "Video homes must remove Codex's top spacer so no panel-tinted seam appears below the header.");
 assert.match(css, /background-color:\s*rgb\(var\(--ds-panel-rgb\) \/ var\(--newskin-video-panel-opacity, 72%\)\)/,
   "Video surfaces must read panel opacity from the second slider-controlled custom property.");
-assert.match(css, /newskin-video-theme \.composer-surface-chrome\s*\{[\s\S]{0,360}background:\s*rgb\(var\(--ds-panel-rgb\) \/ var\(--newskin-video-panel-opacity, 72%\)\)/,
-  "The video composer must read panel opacity from the second slider-controlled custom property.");
 assert.match(css, /right:\s*var\(--newskin-video-controls-right, 20px\);[\s\S]{0,100}bottom:\s*var\(--newskin-video-controls-bottom, 22px\);/,
   "Video control placement must be driven by measured composer space.");
 assert.match(css, /width:\s*var\(--newskin-video-controls-width, 218px\);/,

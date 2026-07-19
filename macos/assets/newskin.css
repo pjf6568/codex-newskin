@@ -1494,7 +1494,7 @@ html.codex-newskin [data-message-author-role] { border-radius: 16px; }
 video#codex-newskin-video.newskin-video-background {
   position: fixed;
   inset: 0;
-  z-index: -1;
+  z-index: 0;
   display: block;
   width: 100vw;
   height: 100vh;
@@ -1508,33 +1508,11 @@ html.codex-newskin.newskin-video-theme body {
   background: transparent !important;
 }
 
-/* Video controls deliberately affect only the task content surface. The
-   sidebar keeps its stable navigation treatment, while the main canvas and
-   composer use the same adjustable translucency and blur. */
+/* The main surface is the video mask. The sidebar and composer retain their
+   independent UI styling and are deliberately not tied to video controls. */
 html.codex-newskin.newskin-video-theme main.main-surface {
   background-color: rgb(var(--ds-panel-rgb) / var(--newskin-video-panel-opacity, 72%)) !important;
   backdrop-filter: blur(var(--newskin-video-blur, 12px)) saturate(1.04) !important;
-}
-
-html.codex-newskin.newskin-video-theme .composer-surface-chrome {
-  background: rgb(var(--ds-panel-rgb) / var(--newskin-video-panel-opacity, 72%)) !important;
-  backdrop-filter: blur(var(--newskin-video-blur, 12px)) saturate(1.04) !important;
-}
-
-/* Immersive image rules have a more specific composer selector. Preserve the
-   video-control contract even when a video preset opts into that metadata. */
-html.codex-newskin.newskin-video-theme[data-dream-art-wide="true"]:has(main.main-surface:not(.newskin-home-shell))
-  .composer-surface-chrome {
-  background: rgb(var(--ds-panel-rgb) / var(--newskin-video-panel-opacity, 72%)) !important;
-  backdrop-filter: blur(var(--newskin-video-blur, 12px)) saturate(1.04) !important;
-}
-
-html.codex-newskin.newskin-video-theme main.main-surface > video#codex-newskin-video.newskin-video-background {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  width: 100%;
-  height: 100%;
 }
 
 /* Codex gives the empty-home content a 15px top spacer. With a video this
