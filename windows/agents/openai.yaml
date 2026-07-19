@@ -1,0 +1,4 @@
+interface:
+  display_name: "Codex Newskin"
+  short_description: "Apply and safely restore the full pink-purple Codex skin"
+  default_prompt: "Use $codex-newskin to apply, verify, update, or restore the full Codex desktop skin."

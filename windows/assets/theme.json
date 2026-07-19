@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 2,
+  "id": "preset-arina-hashimoto",
+  "name": "桥本有菜",
+  "brandSubtitle": "CODEX NEWSKIN",
+  "tagline": "把柔光与玫瑰带进今天的工作台。",
+  "projectPrefix": "选择项目 · ",
+  "projectLabel": "◉  选择项目",
+  "statusText": "NEWSKIN ONLINE",
+  "quote": "MAKE SOMETHING WONDERFUL",
+  "image": "newskin-reference.jpg",
+  "appearance": "auto",
+  "art": {
+    "focusX": 0.72,
+    "focusY": 0.45,
+    "safeArea": "left",
+    "taskMode": "ambient"
+  },
+  "home": {
+    "enabled": true,
+    "title": "今天想把什么变成现实？",
+    "subtitle": "从一个清晰的想法开始，剩下的交给你和 Codex。",
+    "suggestions": [
+      { "title": "开始一个新项目", "prompt": "帮我规划一个新项目的第一步。" },
+      { "title": "梳理当前任务", "prompt": "帮我梳理当前任务，列出下一步行动。" },
+      { "title": "检查一段代码", "prompt": "帮我检查这段代码的潜在问题。" },
+      { "title": "写一份实施计划", "prompt": "帮我写一份可执行的实施计划。" }
+    ]
+  }
+}

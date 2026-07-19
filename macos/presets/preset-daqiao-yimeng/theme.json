@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 2,
+  "id": "preset-daqiao-yimeng",
+  "name": "大乔·遗梦",
+  "brandSubtitle": "CODEX NEWSKIN",
+  "tagline": "一盏烛火，一场未醒的江南旧梦。",
+  "projectPrefix": "选择项目 · ",
+  "projectLabel": "◉  选择项目",
+  "statusText": "YIMENG ONLINE",
+  "quote": "LET THE QUIET LIGHT GUIDE THE WORK",
+  "image": "background.jpg",
+  "appearance": "dark",
+  "art": {
+    "focusX": 0.54,
+    "focusY": 0.48,
+    "safeArea": "none",
+    "taskMode": "ambient",
+    "immersive": true
+  },
+  "colors": {
+    "background": "#160c09",
+    "panel": "#25130e",
+    "panelAlt": "#382016",
+    "accent": "#e5a052",
+    "accentAlt": "#f2c27f",
+    "secondary": "#c77d6b",
+    "highlight": "#9d483b",
+    "text": "#fff0de",
+    "muted": "#c7a58d",
+    "line": "rgba(229, 160, 82, .28)"
+  },
+  "home": {
+    "enabled": true,
+    "title": "今夜想在遗梦里完成什么？",
+    "subtitle": "让烛火照亮下一步，也照亮未完成的心事。",
+    "suggestions": [
+      { "title": "开始一个新项目", "prompt": "帮我规划一个新项目的第一步。" },
+      { "title": "梳理当前任务", "prompt": "帮我梳理当前任务，列出下一步行动。" },
+      { "title": "检查一段代码", "prompt": "帮我检查这段代码的潜在问题。" },
+      { "title": "写一份实施计划", "prompt": "帮我写一份可执行的实施计划。" }
+    ]
+  }
+}
