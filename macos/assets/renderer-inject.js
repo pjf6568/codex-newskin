@@ -6,6 +6,7 @@
   const IP_LAYER_ID = "codex-newskin-ip-layer";
   const VIDEO_ID = "codex-newskin-video";
   const VIDEO_CONTROL_ID = "codex-newskin-video-controls";
+  const VIDEO_MASK_ATTR = "data-newskin-video-mask";
   const VIDEO_BLUR_PROPERTY = "--newskin-video-blur";
   const VIDEO_PANEL_OPACITY_PROPERTY = "--newskin-video-panel-opacity";
   const VIDEO_BLUR_DEFAULT = 12;
@@ -243,7 +244,7 @@
       control.id = VIDEO_CONTROL_ID;
       control.className = "newskin-video-controls";
       control.setAttribute("role", "group");
-      control.setAttribute("aria-label", "视频背景虚化控制");
+      control.setAttribute("aria-label", "视频内容区蒙版控制");
       const colors = THEME.videoControls && typeof THEME.videoControls === "object" ? THEME.videoControls : {};
       for (const [name, fallback] of Object.entries({
         text: "var(--ds-text)", muted: "var(--ds-muted)", track: "rgb(var(--ds-text-rgb) / .24)",
@@ -278,9 +279,9 @@
         control.append(row);
         render(value);
       };
-      addSlider({ key: "blur", label: "背景虚化", min: 0, max: VIDEO_BLUR_MAX, value: blur, unit: "px",
+      addSlider({ key: "blur", label: "内容区虚化", min: 0, max: VIDEO_BLUR_MAX, value: blur, unit: "px",
         update: (next, persist) => setVideoBlur(root, next, { persist }) });
-      addSlider({ key: "opacity", label: "面板不透明度", min: VIDEO_PANEL_OPACITY_MIN, max: VIDEO_PANEL_OPACITY_MAX,
+      addSlider({ key: "opacity", label: "内容区蒙版", min: VIDEO_PANEL_OPACITY_MIN, max: VIDEO_PANEL_OPACITY_MAX,
         value: opacity, unit: "%", update: (next, persist) => setVideoPanelOpacity(root, next, { persist }) });
       document.body?.append(control);
     }
@@ -1378,6 +1379,9 @@
     if (root.classList.contains("newskin-video-theme") !== VIDEO_THEME) {
       root.classList.toggle("newskin-video-theme", VIDEO_THEME);
     }
+    // Every video theme gets this exact layer contract. Theme JSON may choose
+    // colors and control styling, but never a different mask target.
+    setAttribute(root, VIDEO_MASK_ATTR, VIDEO_THEME ? "main" : "none");
     ensureVideoBackground();
     ensureVideoControls(root);
     return shell;
@@ -1483,6 +1487,7 @@
     window[DISABLED_KEY] = true;
     document.documentElement?.classList.remove("codex-newskin", "newskin-video-theme");
     document.documentElement?.removeAttribute(SHELL_ATTR);
+    document.documentElement?.removeAttribute(VIDEO_MASK_ATTR);
     for (const name of ART_ATTRS) document.documentElement?.removeAttribute(name);
     document.documentElement?.style.removeProperty("--newskin-art");
     for (const name of THEME_VARIABLES) document.documentElement?.style.removeProperty(name);

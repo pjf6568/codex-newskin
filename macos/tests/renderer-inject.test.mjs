@@ -36,11 +36,13 @@ assert.match(
   /if \(!root\.classList\.contains\("codex-newskin"\)\) root\.classList\.add\("codex-newskin"\);[\s\S]{0,220}root\.classList\.contains\("newskin-video-theme"\) !== VIDEO_THEME/,
   "Root theme classes must be guarded so their own mutation observer does not create a scroll-time render loop.",
 );
-assert.match(template, /const ensureVideoControls = \(root\) => \{[\s\S]{0,2800}range\.type = "range"[\s\S]{0,900}面板不透明度/,
+assert.match(template, /const ensureVideoControls = \(root\) => \{[\s\S]{0,2800}range\.type = "range"[\s\S]{0,900}内容区蒙版/,
   "Video themes must expose persistent range controls for blur and panel opacity.");
+assert.match(template, /setAttribute\(root, VIDEO_MASK_ATTR, VIDEO_THEME \? "main" : "none"\)/,
+  "Every mediaType video theme must use the fixed main-surface mask contract.");
 assert.match(template, /const positionVideoControls = \(control\) => \{[\s\S]{0,2400}minimumControlsWidth[\s\S]{0,2400}--newskin-video-controls-width[\s\S]{0,2400}above-composer[\s\S]{0,2400}--newskin-video-controls-bottom/,
   "Video controls must shrink into the usable space beside the composer, then move above it only when no usable side space remains.");
-assert.match(css, /newskin-video-theme main\.main-surface\s*\{[\s\S]{0,360}blur\(var\(--newskin-video-blur, 12px\)\)/,
+assert.match(css, /newskin-video-theme\[data-newskin-video-mask="main"\] main\.main-surface\s*\{[\s\S]{0,360}blur\(var\(--newskin-video-blur, 12px\)\)/,
   "The video main content surface must read blur strength from the slider-controlled custom property.");
 assert.doesNotMatch(css, /newskin-video-theme \.composer-surface-chrome\s*\{[\s\S]{0,360}newskin-video-blur/,
   "Video controls must not alter the composer; the main content surface is the video mask.");

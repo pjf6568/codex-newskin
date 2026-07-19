@@ -1510,7 +1510,7 @@ html.codex-newskin.newskin-video-theme body {
 
 /* The main surface is the video mask. The sidebar and composer retain their
    independent UI styling and are deliberately not tied to video controls. */
-html.codex-newskin.newskin-video-theme main.main-surface {
+html.codex-newskin.newskin-video-theme[data-newskin-video-mask="main"] main.main-surface {
   background-color: rgb(var(--ds-panel-rgb) / var(--newskin-video-panel-opacity, 72%)) !important;
   backdrop-filter: blur(var(--newskin-video-blur, 12px)) saturate(1.04) !important;
 }
