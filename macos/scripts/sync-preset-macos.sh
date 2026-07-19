@@ -86,14 +86,11 @@ previous=""
 
 printf 'Synced preset: %s\n' "$THEME_ID"
 
-installed_switch="$HOME/.codex/codex-newskin/scripts/switch-theme-macos.sh"
-if [ -x "$installed_switch" ]; then
-  switch_script="$installed_switch"
-else
-  switch_script="$SCRIPT_DIR/switch-theme-macos.sh"
-fi
+# The local project is the source of truth for this workflow. Applying through
+# its switcher reloads any matching renderer/CSS change with the preset, rather
+# than leaving a previously installed engine copy in control.
+switch_script="$SCRIPT_DIR/switch-theme-macos.sh"
 if [ "$APPLY_NOW" = "true" ]; then
   exec "$switch_script" --id "$THEME_ID"
 fi
 exec "$switch_script" --id "$THEME_ID" --no-apply
-

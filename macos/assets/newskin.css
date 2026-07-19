@@ -1508,9 +1508,24 @@ html.codex-newskin.newskin-video-theme body {
   background: transparent !important;
 }
 
-html.codex-newskin.newskin-video-theme main.main-surface,
-html.codex-newskin.newskin-video-theme aside.app-shell-left-panel {
+/* Video controls deliberately affect only the task content surface. The
+   sidebar keeps its stable navigation treatment, while the main canvas and
+   composer use the same adjustable translucency and blur. */
+html.codex-newskin.newskin-video-theme main.main-surface {
   background-color: rgb(var(--ds-panel-rgb) / var(--newskin-video-panel-opacity, 72%)) !important;
+  backdrop-filter: blur(var(--newskin-video-blur, 12px)) saturate(1.04) !important;
+}
+
+html.codex-newskin.newskin-video-theme .composer-surface-chrome {
+  background: rgb(var(--ds-panel-rgb) / var(--newskin-video-panel-opacity, 72%)) !important;
+  backdrop-filter: blur(var(--newskin-video-blur, 12px)) saturate(1.04) !important;
+}
+
+/* Immersive image rules have a more specific composer selector. Preserve the
+   video-control contract even when a video preset opts into that metadata. */
+html.codex-newskin.newskin-video-theme[data-dream-art-wide="true"]:has(main.main-surface:not(.newskin-home-shell))
+  .composer-surface-chrome {
+  background: rgb(var(--ds-panel-rgb) / var(--newskin-video-panel-opacity, 72%)) !important;
   backdrop-filter: blur(var(--newskin-video-blur, 12px)) saturate(1.04) !important;
 }
 

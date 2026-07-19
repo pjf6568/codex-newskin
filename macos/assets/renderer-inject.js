@@ -695,6 +695,10 @@
     return {
       panel: `rgb(${panelRgb} / .94)`,
       raised: `rgb(${raisedRgb} / .92)`,
+      // The composer receives an inline important surface token. For video
+      // themes it must therefore carry the slider variable itself; a later
+      // stylesheet cannot override that inline declaration.
+      videoComposer: `rgb(${raisedRgb} / var(${VIDEO_PANEL_OPACITY_PROPERTY}, 72%))`,
       input: `rgb(${panelRgb} / .78)`,
       // Sidebar items are navigation, not a stack of cards. Keep their
       // ordinary state on the sidebar surface and reserve the accent fill for
@@ -719,6 +723,7 @@
       Boolean(node.closest?.('[aria-current="page"], [data-state="active"], [data-active="true"]'));
     const activeMenuItem = node.matches?.('[aria-current="page"], [aria-checked="true"], [data-state="active"], [data-state="checked"], [data-state="open"]') ||
       Boolean(node.closest?.('[aria-current="page"], [aria-checked="true"], [data-state="active"], [data-state="checked"]'));
+    if (VIDEO_THEME && node.matches?.(".composer-surface-chrome")) return "videoComposer";
     if (node.matches?.('.thread-scroll-container .bg-gradient-to-t.from-token-main-surface-primary')) return "composerBackdrop";
     if (node.matches?.('[class*="bg-token-foreground/5"][class*="rounded-2xl"]')) return "selected";
     if (node.matches?.('.thread-scroll-container [class~="bg-token-bg-secondary"]:has(svg)')) return "fileIcon";
