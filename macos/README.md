@@ -91,7 +91,8 @@ Start is one-shot: a concurrent second start is rejected by an atomic per-user l
 ## Bundled presets
 
 A fresh install seeds the bundled presets into your theme library, including
-**Gothic Void Crusade**, **桥本有菜 / Arina Hashimoto**, and **大乔·遗梦**.
+**Gothic Void Crusade**, **桥本有菜 / Arina Hashimoto**, **大乔·遗梦**, and the
+video preset **仰月**.
 Gothic Void Crusade is the default when no active theme exists. Switch to
 Arina Hashimoto with:
 

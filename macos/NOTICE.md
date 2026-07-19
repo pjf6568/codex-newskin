@@ -26,6 +26,10 @@ The following user/maintainer-supplied files are excluded from the MIT software 
 
 They are included at the maintainer's direction as local theme assets. They are not official OpenAI/Codex artwork. The preset name is a maintainer label and does not imply the named person's participation, approval, or endorsement. Their inclusion does not certify or grant third-party likeness, model-output, or redistribution rights. Downstream redistribution and commercial use require an independent rights review.
 
+## 仰月 video material
+
+`presets/preset-yangyue/background.mp4` is user-supplied material and is excluded from the MIT software license. Its inclusion does not grant third-party redistribution or commercial-use rights; downstream users must independently confirm that they have permission to use it.
+
 ## Runtime
 
 This project does not redistribute Node.js. At runtime it validates and uses the Node.js executable already signed and bundled inside the user's official Codex desktop application.
