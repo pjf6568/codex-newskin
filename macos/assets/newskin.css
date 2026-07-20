@@ -1011,11 +1011,10 @@ html.codex-newskin:is([data-dream-art-safe="center"], [data-dream-art-safe-area=
 }
 
 .newskin-home [data-feature="game-source"] button::before {
-  content: var(--newskin-project-prefix, "选择项目 · ");
-  font-size: .46em;
-  font-weight: 700;
-  vertical-align: middle;
-  opacity: .86;
+  /* The native project button already exposes the selected project. Adding a
+     second "选择项目" label makes the new-task heading read like helper copy
+     rather than a concise project control. */
+  content: none;
 }
 
 .newskin-home > div:first-child > div:first-child > div:first-child > div:nth-child(2) {
@@ -1034,18 +1033,17 @@ html.codex-newskin:is([data-dream-art-safe="center"], [data-dream-art-safe-area=
   align-items: stretch !important;
   justify-content: flex-start !important;
   text-align: center !important;
-  border: 1px solid rgb(var(--ds-muted-rgb) / .18) !important;
-  border-radius: 18px !important;
-  background: rgb(var(--ds-panel-rgb) / .90) !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
   color: var(--ds-text) !important;
   font-weight: 600 !important;
   line-height: 1.45 !important;
-  box-shadow: 0 8px 22px rgb(var(--ds-bg-rgb) / .18) !important;
-  backdrop-filter: blur(10px) saturate(105%) !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
   transform: translateY(0);
   transition: transform .18s cubic-bezier(.22, 1, .36, 1),
-    box-shadow .18s cubic-bezier(.22, 1, .36, 1),
-    border-color .18s cubic-bezier(.22, 1, .36, 1) !important;
+    color .18s cubic-bezier(.22, 1, .36, 1) !important;
 }
 
 .newskin-home .group\/home-suggestions button [class~="text-token-text-primary"] {
@@ -1054,8 +1052,13 @@ html.codex-newskin:is([data-dream-art-safe="center"], [data-dream-art-safe-area=
 
 .newskin-home .group\/home-suggestions button:hover {
   transform: translateY(-2px) !important;
-  border-color: rgb(var(--ds-accent-rgb) / .42) !important;
-  box-shadow: 0 12px 28px rgb(var(--ds-bg-rgb) / .24) !important;
+  background: transparent !important;
+  color: var(--ds-accent) !important;
+}
+
+.newskin-home .group\/home-suggestions button:focus-visible {
+  outline: 2px solid rgb(var(--ds-accent-rgb) / .78) !important;
+  outline-offset: 5px !important;
 }
 
 .newskin-home .group\/home-suggestions button > span:first-child > span:first-child {
@@ -1164,11 +1167,10 @@ html.codex-newskin[data-dream-art-wide="true"] main.main-surface.newskin-home-sh
 
 html.codex-newskin[data-dream-art-wide="true"] main.main-surface.newskin-home-shell
   .newskin-home .group\/home-suggestions button {
-  background: rgb(var(--ds-panel-rgb) / .56) !important;
-  box-shadow:
-    0 8px 22px rgb(var(--ds-bg-rgb) / .16),
-    inset 0 0 0 1px rgb(var(--ds-muted-rgb) / .20) !important;
-  backdrop-filter: blur(8px) saturate(104%) !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
 }
 
 html.codex-newskin[data-dream-art-wide="true"] .composer-surface-chrome {

@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 2,
+  "id": "preset-shrine-lantern",
+  "name": "神社灯火",
+  "brandSubtitle": "CODEX NEWSKIN",
+  "tagline": "靛蓝夜色托起暖灯，留一处安静给思考。",
+  "projectPrefix": "选择项目 · ",
+  "projectLabel": "◉  选择项目",
+  "statusText": "LANTERN ONLINE",
+  "quote": "KEEP A LANTERN LIT FOR THE NEXT IDEA",
+  "image": "background.jpg",
+  "appearance": "dark",
+  "art": {
+    "focusX": 0.38,
+    "focusY": 0.47,
+    "safeArea": "right",
+    "taskMode": "ambient",
+    "immersive": true
+  },
+  "colors": {
+    "background": "#09182a",
+    "panel": "#10243a",
+    "panelAlt": "#18354b",
+    "accent": "#f0a34e",
+    "accentAlt": "#ffd18a",
+    "secondary": "#d67878",
+    "highlight": "#a567a1",
+    "text": "#fff4e5",
+    "muted": "#b9c3d1",
+    "line": "rgba(240, 163, 78, .30)"
+  },
+  "home": {
+    "enabled": true,
+    "title": "今晚想把什么愿望写进代码？",
+    "subtitle": "让灯火、星光与一段安静的专注陪伴你。",
+    "suggestions": [
+      { "title": "开始一个新项目", "prompt": "帮我规划一个新项目的第一步。" },
+      { "title": "梳理当前任务", "prompt": "帮我梳理当前任务，列出下一步行动。" },
+      { "title": "检查一段代码", "prompt": "帮我检查这段代码的潜在问题。" },
+      { "title": "写一份实施计划", "prompt": "帮我写一份可执行的实施计划。" }
+    ]
+  }
+}

@@ -204,8 +204,8 @@ finish_client_operation() {
 }
 
 # Seed bundled preset packs into the user's themes/ library so a fresh install
-# ships with ready-to-use skins. Idempotent (each preset is refreshed in place)
-# and scoped to preset-* ids, so user-made custom-* packs are never touched.
+# ships with ready-to-use skins. Idempotent (each preset is refreshed in place).
+# User-made custom-* packs are retained, except explicitly retired legacy IDs.
 seed_bundled_presets() {
   local presets_root="$PROJECT_ROOT/presets"
   [ -d "$presets_root" ] || return 0
@@ -214,7 +214,8 @@ seed_bundled_presets() {
   local retired
   for retired in \
     preset-midnight-aurora preset-sakura-dawn preset-amber-dusk \
-    preset-forest-mist preset-cyber-neon preset-romantic-rose; do
+    preset-forest-mist preset-cyber-neon preset-romantic-rose \
+    custom-1784444951596; do
     /bin/rm -rf "$themes_root/$retired"
   done
   local src id dest entry

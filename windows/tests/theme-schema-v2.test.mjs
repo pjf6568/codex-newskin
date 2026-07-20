@@ -27,8 +27,9 @@ const valid = {
 };
 
 try {
-  await fs.copyFile(path.join(root, "assets", "newskin-reference.jpg"), path.join(temporary, "background.jpg"));
-  await fs.copyFile(path.join(root, "assets", "newskin-reference.jpg"), path.join(temporary, "banner.jpg"));
+  const featuredPath = path.join(root, "assets", "presets", "preset-arina-hashimoto", "background.jpg");
+  await fs.copyFile(featuredPath, path.join(temporary, "background.jpg"));
+  await fs.copyFile(featuredPath, path.join(temporary, "banner.jpg"));
   await fs.writeFile(path.join(temporary, "theme.json"), `${JSON.stringify(valid)}\n`);
   const output = execFileSync(process.execPath, [
     path.join(root, "scripts", "injector.mjs"), "--check-payload", "--theme-dir", temporary,

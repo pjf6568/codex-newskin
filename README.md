@@ -12,6 +12,19 @@
 
 > 非 OpenAI 官方产品；Codex 是其权利人持有的商标。
 
+## 主题效果预览
+
+<p align="center">
+  <img src="./showcase/theme-video-workspace.png" alt="视频主题工作台" width="49%">
+  <img src="./showcase/theme-moonlit-window.png" alt="月夜主题首页" width="49%">
+</p>
+<p align="center">
+  <img src="./showcase/theme-sakura-garden.png" alt="樱庭主题首页" width="49%">
+  <img src="./showcase/theme-crimson-night.png" alt="绯夜主题工作台" width="49%">
+</p>
+
+截图展示视频、月夜、樱庭与绯夜等主题在真实 Codex 工作台中的效果；主题始终保留原生侧栏、项目选择、任务与输入框交互。
+
 ## 支持的平台
 
 | 平台 | 入口 | 主要要求 |
@@ -32,8 +45,8 @@
 ./scripts/install-newskin-macos.sh --no-launch
 ```
 
-安装后，使用桌面上的 `Codex Newskin.command` 启动或重新应用主题；需要恢复
-官方外观时，运行 `Codex Newskin - Restore.command`。完整说明、主题导入、菜单栏
+安装后，使用桌面上的 `Codex Newskin.command` 应用主题；`Codex Newskin - Pause.command`
+会只取消当前注入，`Codex Newskin - Restore.command` 则恢复官方外观。完整说明、主题导入、菜单栏
 工具与视频背景支持见 [`macos/README.md`](./macos/README.md)。
 
 ### Windows
@@ -57,13 +70,15 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\windows\scripts\instal
 ## 仓库结构
 
 ```text
+themes/     唯一可编辑的主题包、媒体和跨平台注册表
 macos/      macOS 安装、主题管理、菜单栏工具、预设和测试
 windows/    Windows 安装、托盘工具、主题管理和测试
 .github/    Issue、PR 与持续集成配置
 ```
 
-每个已验证的主题预设均包含背景文件和 `theme.json`。macOS 预设说明见
-[`macos/presets/README.md`](./macos/presets/README.md)。
+每个已验证主题的配置与图片／视频都只在 [`themes/`](./themes/README.md)
+维护；macOS 与 Windows 的预设目录是自动生成的发布副本。Windows 会在安装或
+更新时将内置预设播种到「已保存主题」和首页主题轮换控件。
 
 ## 验证
 
@@ -71,6 +86,12 @@ macOS：
 
 ```bash
 (cd macos && npm test)
+```
+
+主题目录同步校验：
+
+```bash
+node tools/sync-theme-catalog.mjs
 ```
 
 Windows：

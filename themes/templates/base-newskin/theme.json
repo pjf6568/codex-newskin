@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 2,
+  "id": "custom-1784123441349",
+  "name": "Newskin",
+  "brandSubtitle": "CODEX NEWSKIN",
+  "tagline": "把喜欢的画面变成可交互的 Codex 工作台。",
+  "projectPrefix": "选择项目 · ",
+  "projectLabel": "◉  选择项目",
+  "statusText": "THEME ONLINE",
+  "quote": "Make something wonderful",
+  "image": "portal-hero.png",
+  "colors": {
+    "background": "#F7F4F5",
+    "panel": "#FFFFFF",
+    "panelAlt": "#FFF7F8",
+    "accent": "#E25563",
+    "accentAlt": "#F07A86",
+    "secondary": "#F3A8AF",
+    "highlight": "#C93D4C",
+    "text": "#2B2224",
+    "muted": "#8A7A7D",
+    "line": "rgba(196, 120, 128, .22)"
+  },
+  "promoTitle": "感谢 Passion8 赞助",
+  "promoSub": "passion8.cc",
+  "promoUrl": "https://passion8.cc/register?aff=TuPe",
+  "home": {
+    "enabled": true,
+    "title": "今天想把什么变成现实？",
+    "subtitle": "从一个清晰的想法开始，剩下的交给你和 Codex。",
+    "suggestions": [
+      { "title": "开始一个新项目", "prompt": "帮我规划一个新项目的第一步。" },
+      { "title": "梳理当前任务", "prompt": "帮我梳理当前任务，列出下一步行动。" },
+      { "title": "检查一段代码", "prompt": "帮我检查这段代码的潜在问题。" },
+      { "title": "写一份实施计划", "prompt": "帮我写一份可执行的实施计划。" }
+    ]
+  }
+}

@@ -28,6 +28,8 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\install-newski
 - `Codex Newskin - Tray`：打开系统托盘主题控制。
 - `Codex Newskin - Restore`：恢复官方外观并关闭已保存的 CDP 会话。
 
+主题仓库会直接播种 **桥本有菜、樱庭绮梦、绯夜兔语、神社灯火、海风霓裳** 五套内置主题；它们会同时出现在托盘的「已保存主题」和首页主题轮换控件中，且不会覆盖当前主题。所有内置主题的配置和背景媒体只在仓库根目录 [`../themes/`](../themes/README.md) 维护，Windows 下的 `assets/presets/` 是自动生成的发布副本。
+
 安装命令中的 `Bypass` 只作用于这一次由用户明确发起的安装进程。安装器会先校验运行时副本的 SHA-256，再仅对 `%LOCALAPPDATA%\CodexNewskin\engine` 中受管的 PowerShell 副本清除下载区标记。日常快捷方式使用 `RemoteSigned`，不会绕过系统或企业组策略。
 
 如需使用自定义端口，可以在安装时传入 `-Port`。端口范围必须是 `1024` 到 `65535`。
@@ -73,6 +75,7 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\verify-newskin
 
 - 更换 PNG、JPEG、WebP 图片，或不超过 32 MB 的 MP4、WebM、MOV 视频背景。视频始终静音循环播放；推荐 MP4（H.264）或 WebM。
 - 保存当前主题并从「已保存主题」切换。
+- 安装或更新后，内置主题会自动加入首页主题轮换，无需逐张导入。
 - 暂停或继续显示皮肤。
 - 重新应用主题，或完整恢复 Codex。
 

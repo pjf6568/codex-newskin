@@ -83,6 +83,7 @@ clear_operation_state
 /bin/rm -f "$OPERATION_ACK_PATH"
 if [ "$UNINSTALL" = "true" ]; then
   /bin/rm -f "$HOME/Desktop/Codex Newskin.command"
+  /bin/rm -f "$HOME/Desktop/Codex Newskin - Pause.command"
   /bin/rm -f "$HOME/Desktop/Codex Newskin - Customize.command"
   /bin/rm -f "$HOME/Desktop/Codex Newskin - Verify.command"
   /bin/rm -f "$HOME/Desktop/Codex Newskin - Restore.command"

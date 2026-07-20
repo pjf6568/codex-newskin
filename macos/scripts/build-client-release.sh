@@ -14,6 +14,7 @@ trap '/bin/rm -rf "$TMP"' EXIT
 /usr/bin/rsync -a \
   --exclude '.git/' \
   --exclude '.DS_Store' \
+  --exclude 'client-delivery/' \
   --exclude 'release/' \
   --exclude 'runtime/' \
   "$ROOT/" "$ENGINE/"
@@ -41,12 +42,12 @@ fi
   '' \
   '推荐方式：把这个完整 ZIP、你喜欢的图片和“给 Codex 的部署提示词.md”一起发给自己的 Codex。' \
   '' \
-  '手动方式：双击“安装 Codex 主题编辑器.command”。安装完成后，桌面会出现启动、定制、验证和恢复四个入口。' \
+  '手动方式：双击“安装 Codex 主题编辑器.command”。安装完成后，桌面会出现应用、暂停、定制、验证和恢复五个入口。' \
   '' \
   '不要只复制图片或 CSS。隐藏目录 .codex-newskin 是完整运行引擎，请勿删除。' \
   > "$CLIENT_ROOT/使用说明.txt"
 
-/bin/cp "$ROOT/CLIENT_DEPLOY_PROMPT.md" "$CLIENT_ROOT/给 Codex 的部署提示词.md"
+/bin/cp "$ROOT/client-delivery/DEPLOYMENT_PROMPT.md" "$CLIENT_ROOT/给 Codex 的部署提示词.md"
 /bin/chmod 755 "$CLIENT_ROOT/安装 Codex 主题编辑器.command"
 /bin/chmod 755 "$ENGINE"/*.command "$ENGINE"/scripts/*.sh "$ENGINE"/tests/*.sh
 /usr/bin/xattr -cr "$CLIENT_ROOT"

@@ -549,7 +549,14 @@
       layer.setAttribute("aria-label", `${rawConfig?.name || "Codex Newskin"} 主题`);
       home.prepend(layer);
     }
-    const revision = JSON.stringify(homeConfig);
+    // The home copy can stay identical while the saved-theme library changes.
+    // Include the selectable list so a hot reapply rebuilds the carousel after
+    // newly bundled presets are seeded.
+    const revision = JSON.stringify({
+      home: homeConfig,
+      id: rawConfig?.id,
+      availableThemes: rawConfig?.availableThemes,
+    });
     if (layer.dataset.themeRevision === revision) return;
     layer.replaceChildren();
     layer.dataset.themeRevision = revision;
@@ -560,9 +567,13 @@
         nonce: `${Date.now()}:${Math.random().toString(36).slice(2, 10)}`,
       };
     };
+    const switcher = document.createElement("div");
+    switcher.className = "newskin-ip-switcher";
     const controls = document.createElement("div");
     controls.className = "newskin-ip-controls";
-    const availableThemes = Array.isArray(rawConfig?.availableThemes) ? rawConfig.availableThemes.slice(0, 12) : [];
+    const availableThemes = (Array.isArray(rawConfig?.availableThemes) ? rawConfig.availableThemes : [])
+      .filter((item) => item && typeof item.id === "string" && typeof item.name === "string")
+      .slice(0, 12);
     for (const item of availableThemes) {
       if (!item || typeof item.id !== "string" || typeof item.name !== "string") continue;
       const choice = document.createElement("button");
@@ -583,7 +594,40 @@
       window[STATE_KEY]?.cleanup?.();
     });
     controls.append(native);
-    layer.append(controls);
+    if (availableThemes.length + 1 > 4) {
+      const createScrollButton = (direction, label) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = `newskin-ip-scroll-button newskin-ip-scroll-button-${direction}`;
+        button.textContent = direction === "previous" ? "‹" : "›";
+        button.setAttribute("aria-label", label);
+        button.setAttribute("title", label);
+        return button;
+      };
+      const rotateThemes = (direction) => {
+        const choices = [...controls.querySelectorAll(".newskin-ip-choice, .newskin-ip-native")];
+        if (choices.length <= 4) return;
+        if (direction > 0) controls.append(choices.shift());
+        else controls.insertBefore(choices.pop(), choices[0]);
+        controls.scrollLeft = 0;
+      };
+      const previous = createScrollButton("previous", "显示前面的主题");
+      const next = createScrollButton("next", "显示后面的主题");
+      previous.addEventListener("click", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        rotateThemes(-1);
+      });
+      next.addEventListener("click", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        rotateThemes(1);
+      });
+      switcher.append(previous, controls, next);
+      layer.append(switcher);
+    } else {
+      layer.append(controls);
+    }
   };
 
   const ensure = () => {

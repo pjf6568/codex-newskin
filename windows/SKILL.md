@@ -51,8 +51,8 @@ node --check assets\renderer-inject.js
 - `scripts/config-utf8.ps1`: atomic UTF-8 configuration backup, selective restore, and explicit recovery.
 - `assets/newskin.css`: full visual layer.
 - `assets/renderer-inject.js`: idempotent DOM integration and cleanup.
-- `assets/newskin-reference.jpg`: pure 2560 × 1440 Arina Hashimoto wallpaper seeded as the default and as a saved theme; it contains no Codex UI.
-- `assets/theme.json`: shared adaptive theme contract for the seeded preset.
+- `../themes/`: canonical theme configs, images/videos, and platform registry. Do not edit generated `assets/presets/` packs by hand.
+- `assets/presets/preset-arina-hashimoto/`: generated pure 2560 × 1440 default wallpaper and its theme contract.
 - `scripts/theme-windows.ps1`: persistent active/saved theme store, safe image import, pause state, and preset seeding.
 - `scripts/tray-newskin.ps1`: Windows Forms tray for apply, pause, import, save, switch, and complete restore.
 - `references/qa-inventory.md`: required functional and visual signoff coverage.

@@ -33,7 +33,7 @@
 
 4. 确认官方 Codex 至少运行过一次，且 `~/.codex/config.toml` 已存在。运行：
    `<ENGINE>/scripts/install-newskin-macos.sh --no-launch`
-   完整项目应被安装到 `~/.codex/codex-newskin`，并生成桌面启动、定制、验证和恢复入口。
+   完整项目应被安装到 `~/.codex/codex-newskin`，并生成桌面应用、暂停、定制、验证和恢复入口。
 
 5. 如果我上传了主题图片，使用安装后的脚本处理素材：
    `~/.codex/codex-newskin/scripts/customize-theme-macos.sh --image "<图片绝对路径>" --name "我的 Codex Newskin" --no-apply`
@@ -46,8 +46,9 @@
    - `~/.codex/codex-newskin/scripts/verify-newskin-macos.sh --reload --screenshot "<首页验收截图绝对路径>"`
    验证器必须真实返回 `pass: true`。随后还要检查一个正常任务页面，确认背景存在且正文、菜单、侧栏和输入框仍清晰可用，并保存任务页截图。
 
-8. 检查桌面已存在以下四个入口：
+8. 检查桌面已存在以下五个入口：
    - `Codex Newskin.command`
+   - `Codex Newskin - Pause.command`
    - `Codex Newskin - Customize.command`
    - `Codex Newskin - Verify.command`
    - `Codex Newskin - Restore.command`
@@ -60,7 +61,7 @@
 - tests、doctor、verify 的真实结果，其中 verify 必须注明是否 `pass: true`；
 - 首页与任务页实机截图绝对路径；
 - 安装目录；
-- 桌面四个入口是否齐全；
+- 桌面五个入口是否齐全；
 - 一键恢复入口；
 - 官方应用代码签名是否仍有效；
 - 明确说明官方 `.app` 和 `app.asar` 均未被修改。

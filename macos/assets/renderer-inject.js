@@ -861,11 +861,22 @@
       navigationCurrent: {
         background: `rgb(${accentRgb} / .12)`, color: text, border: `rgb(${accentRgb} / .22)`,
       },
+      // The four empty-home suggestions are action affordances over the
+      // wallpaper, not raised secondary buttons. This role is applied as an
+      // inline value because the injector themes controls inline as well.
+      homeSuggestion: {
+        background: "transparent", color: text, border: "transparent",
+      },
     };
   };
 
   const controlRoleForNode = (node, name) => {
     const label = `${node.textContent || ""} ${node.getAttribute?.("aria-label") || ""}`.trim();
+    // This check must run before the generic fallback below. Otherwise the
+    // injector writes an inline `secondary` background with `!important`,
+    // which correctly beats a stylesheet rule but incorrectly recreates the
+    // pale rectangular surface on the New Task shortcuts.
+    if (node.closest?.('[class~="group/home-suggestions"]')) return "homeSuggestion";
     const sidebarThreadRow = node.matches?.('[data-app-action-sidebar-thread-row]')
       ? node
       : node.querySelector?.('[data-app-action-sidebar-thread-row]');

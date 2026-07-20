@@ -201,6 +201,54 @@ function Write-NewskinTheme {
   Write-NewskinUtf8FileAtomically -Path $themePath -Content ($json + "`r`n")
 }
 
+function Seed-NewskinBundledPresets {
+  param(
+    [Parameter(Mandatory = $true)][string]$AssetRoot,
+    [Parameter(Mandatory = $true)][object]$Paths
+  )
+  # The saved-theme menu and the in-app carousel enumerate themes/ only. Keep
+  # each packaged preset there so a new bundled theme is immediately selectable
+  # after an install or engine update, without replacing the active theme.
+  $sources = @(
+    [pscustomobject]@{ Id = 'preset-arina-hashimoto'; Directory = (Join-Path $AssetRoot 'presets\preset-arina-hashimoto') },
+    [pscustomobject]@{ Id = 'preset-sakura-garden'; Directory = (Join-Path $AssetRoot 'presets\preset-sakura-garden') },
+    [pscustomobject]@{ Id = 'preset-crimson-night'; Directory = (Join-Path $AssetRoot 'presets\preset-crimson-night') },
+    [pscustomobject]@{ Id = 'preset-shrine-lantern'; Directory = (Join-Path $AssetRoot 'presets\preset-shrine-lantern') },
+    [pscustomobject]@{ Id = 'preset-tidal-silk'; Directory = (Join-Path $AssetRoot 'presets\preset-tidal-silk') }
+  )
+  foreach ($sourceSpec in $sources) {
+    Assert-NewskinNoReparseComponents -Path $sourceSpec.Directory
+    $source = Read-NewskinTheme -ThemeDirectory $sourceSpec.Directory
+    if ("$($source.Theme.id)" -cne $sourceSpec.Id) {
+      throw "Bundled preset manifest ID does not match its package directory: $($sourceSpec.Id)"
+    }
+    $destination = Join-Path $Paths.Saved $sourceSpec.Id
+    $destinationTheme = Join-Path $destination 'theme.json'
+    Assert-NewskinNoReparseComponents -Path $destination
+    Assert-NewskinNoReparseComponents -Path $destinationTheme
+    # Never overwrite an already saved bundle: users may retain a previous
+    # version while active/custom themes must remain completely untouched.
+    if (Test-Path -LiteralPath $destinationTheme -PathType Leaf) { continue }
+    Ensure-NewskinManagedDirectory -Path $destination -Root $Paths.Root
+    $imageName = [System.IO.Path]::GetFileName($source.ImagePath)
+    $destinationImage = Join-Path $destination $imageName
+    Assert-NewskinNoReparseComponents -Path $destinationImage
+    Copy-Item -LiteralPath $source.ImagePath -Destination $destinationImage -Force
+    Assert-NewskinNoReparseComponents -Path $destinationImage
+    Assert-NewskinImageFile -Path $destinationImage
+    if ($source.BannerPath) {
+      $bannerName = [System.IO.Path]::GetFileName($source.BannerPath)
+      $destinationBanner = Join-Path $destination $bannerName
+      Assert-NewskinNoReparseComponents -Path $destinationBanner
+      Copy-Item -LiteralPath $source.BannerPath -Destination $destinationBanner -Force
+      Assert-NewskinNoReparseComponents -Path $destinationBanner
+      Assert-NewskinImageFile -Path $destinationBanner
+    }
+    Copy-Item -LiteralPath $source.ThemePath -Destination $destinationTheme -Force
+    $null = Read-NewskinTheme -ThemeDirectory $destination
+  }
+}
+
 function Initialize-NewskinThemeStore {
   param(
     [Parameter(Mandatory = $true)][string]$SkillRoot,
@@ -211,47 +259,36 @@ function Initialize-NewskinThemeStore {
     Ensure-NewskinManagedDirectory -Path $directory -Root $paths.Root
   }
   $assetRoot = Join-Path $SkillRoot 'assets'
-  $assetImage = Join-Path $assetRoot 'newskin-reference.jpg'
+  $defaultPresetDirectory = Join-Path $assetRoot 'presets\preset-arina-hashimoto'
+  $defaultPreset = Read-NewskinTheme -ThemeDirectory $defaultPresetDirectory
+  $assetImage = $defaultPreset.ImagePath
   Assert-NewskinImageFile -Path $assetImage
   $activeTheme = Join-Path $paths.Active 'theme.json'
   Assert-NewskinNoReparseComponents -Path $activeTheme
   if (-not (Test-Path -LiteralPath $activeTheme -PathType Leaf)) {
     Ensure-NewskinManagedDirectory -Path $paths.Active -Root $paths.Root
-    Assert-NewskinNoReparseComponents -Path (Join-Path $paths.Active 'newskin-reference.jpg')
-    $activeImage = Join-Path $paths.Active 'newskin-reference.jpg'
-    Copy-Item -LiteralPath (Join-Path $assetRoot 'newskin-reference.jpg') `
+    $imageName = [System.IO.Path]::GetFileName($assetImage)
+    Assert-NewskinNoReparseComponents -Path (Join-Path $paths.Active $imageName)
+    $activeImage = Join-Path $paths.Active $imageName
+    Copy-Item -LiteralPath $assetImage `
       -Destination $activeImage -Force
     Assert-NewskinNoReparseComponents -Path $activeImage
     Assert-NewskinImageFile -Path $activeImage
-    $imageArchive = Join-Path $paths.Images 'newskin-reference.jpg'
+    $imageArchive = Join-Path $paths.Images $imageName
     Assert-NewskinNoReparseComponents -Path $imageArchive
-    Copy-Item -LiteralPath (Join-Path $assetRoot 'newskin-reference.jpg') `
+    Copy-Item -LiteralPath $assetImage `
       -Destination $imageArchive -Force
     Assert-NewskinNoReparseComponents -Path $imageArchive
     Assert-NewskinImageFile -Path $imageArchive
     Assert-NewskinNoReparseComponents -Path $activeTheme
-    Copy-Item -LiteralPath (Join-Path $assetRoot 'theme.json') -Destination $activeTheme -Force
+    Copy-Item -LiteralPath $defaultPreset.ThemePath -Destination $activeTheme -Force
   }
   $retiredPresetDirectory = Join-Path $paths.Saved 'preset-romantic-rose'
   Assert-NewskinNoReparseComponents -Path $retiredPresetDirectory
   if (Test-Path -LiteralPath $retiredPresetDirectory) {
     Remove-Item -LiteralPath $retiredPresetDirectory -Recurse -Force
   }
-  $presetDirectory = Join-Path $paths.Saved 'preset-arina-hashimoto'
-  $presetTheme = Join-Path $presetDirectory 'theme.json'
-  Assert-NewskinNoReparseComponents -Path $presetDirectory
-  Assert-NewskinNoReparseComponents -Path $presetTheme
-  if (-not (Test-Path -LiteralPath $presetTheme -PathType Leaf)) {
-    Ensure-NewskinManagedDirectory -Path $presetDirectory -Root $paths.Root
-    $presetImage = Join-Path $presetDirectory 'newskin-reference.jpg'
-    Assert-NewskinNoReparseComponents -Path $presetImage
-    Copy-Item -LiteralPath (Join-Path $assetRoot 'newskin-reference.jpg') `
-      -Destination $presetImage -Force
-    Assert-NewskinNoReparseComponents -Path $presetImage
-    Assert-NewskinImageFile -Path $presetImage
-    Assert-NewskinNoReparseComponents -Path $presetTheme
-    Copy-Item -LiteralPath (Join-Path $assetRoot 'theme.json') -Destination $presetTheme -Force
-  }
+  Seed-NewskinBundledPresets -AssetRoot $assetRoot -Paths $paths
   $null = Read-NewskinTheme -ThemeDirectory $paths.Active
   return $paths
 }

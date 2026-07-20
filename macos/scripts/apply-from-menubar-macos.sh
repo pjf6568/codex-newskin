@@ -113,7 +113,10 @@ progress "检查 ChatGPT…"
 ensure_state_root
 progress "启动/连接调试口…"
 
-"$SCRIPT_DIR/start-newskin-macos.sh" --restart-existing >>"$LOG_OUT" 2>&1
+# A menu-bar reapply is an explicit refresh request. In addition to keeping the
+# active wallpaper in place, it reloads the empty-home theme carousel after
+# start-newskin has synchronized newly bundled preset packs.
+"$SCRIPT_DIR/start-newskin-macos.sh" --restart-existing --refresh-running >>"$LOG_OUT" 2>&1
 code=$?
 
 if [ "$code" -eq 0 ]; then

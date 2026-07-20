@@ -28,6 +28,10 @@ The installer validates the official Codex Store package and Node.js, saves a re
 - `Codex Newskin - Tray`: open the system tray theme controls.
 - `Codex Newskin - Restore`: restore the stock appearance and close the saved CDP session.
 
+Bundled theme configuration and background media are edited only in the root
+[`../themes/`](../themes/README.md) catalog. Windows `assets/presets/` packs
+are generated delivery copies.
+
 `Bypass` in the install command applies only to that user-initiated installer process. The installer verifies the runtime copy with SHA-256, then clears download-zone markers only from managed PowerShell copies under `%LOCALAPPDATA%\CodexNewskin\engine`. Daily shortcuts use `RemoteSigned` and do not override system or enterprise Group Policy.
 
 Pass `-Port` during installation to use a fixed custom port. Valid ports range from `1024` through `65535`.
@@ -73,6 +77,7 @@ Open `Codex Newskin - Tray` to:
 
 - Import a PNG, JPEG, WebP, or a local MP4, WebM, or MOV background. Videos are muted and looped; MP4 (H.264) and WebM are recommended.
 - Save the active theme and switch through saved themes.
+- Use the bundled Arina Hashimoto, Sakura Garden, Crimson Night, Shrine Lantern, and Tidal Silk themes, which are seeded into the saved-theme menu and home carousel during installation or update.
 - Pause or resume the skin.
 - Reapply the theme or fully restore Codex.
 

@@ -2,7 +2,7 @@
 Thanks for contributing! Please complete this template.
 感谢贡献！请填完本模板后再提交。
 
-Docs: README.md · macos/README.md · windows/SKILL.md · docs/platforms.md
+Docs: README.md · macos/README.md · windows/README.md · themes/README.md
 Security: loopback CDP only — do not patch official .app / asar / WindowsApps; do not rewrite API keys.
 安全：仅本机 CDP；勿改官方安装包；勿静默改写 API。
 -->
@@ -42,7 +42,7 @@ Check what you actually ran. Skip items that do not apply and say so under Notes
 
 - [ ] `macos/tests/run-tests.sh` passed / 已通过
 - [ ] Doctor (optional): `macos/scripts/doctor-macos.sh`
-- [ ] Live verify (if inject/CSS/start path): `verify-dream-skin-macos.sh` or Desktop **Verify**
+- [ ] Live verify (if inject/CSS/start path): `verify-newskin-macos.sh` or Desktop **Verify**
 - [ ] Restore / re-apply smoke (if install/restore/start changed) / 若改了安装恢复启动则做过恢复再应用
 
 ### Windows (when code under `windows/` changes)

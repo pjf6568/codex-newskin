@@ -27,8 +27,9 @@ This project injects through **local loopback CDP**. It does **not** modify the 
 ~/.codex/codex-newskin/scripts/switch-theme-macos.sh --id preset-arina-hashimoto
 # ~/.codex/codex-newskin/scripts/customize-theme-macos.sh
 
-# 4) Start/re-apply, verify, or restore via Desktop:
+# 4) Apply, pause, verify, or restore via Desktop:
 #    Codex Newskin.command
+#    Codex Newskin - Pause.command
 #    Codex Newskin - Customize.command
 #    Codex Newskin - Verify.command
 #    Codex Newskin - Restore.command
@@ -86,13 +87,14 @@ Video themes use `mediaType: "video"` in `theme.json`; their `image` field remai
 
 Restore is idempotent: if no active Newskin session or saved base-theme backup remains, it leaves the running Codex window untouched—even when invoked from the desktop Restore launcher. A normal restart is performed only when an unverified recorded skin session or an actual config restoration requires it.
 
-Start is one-shot: a concurrent second start is rejected by an atomic per-user lock, and clicking Start again after a verified active session is a no-op. Neither path closes or restarts Codex.
+`Codex Newskin.command` is the one-click apply entry. `Codex Newskin - Pause.command` removes the live skin while retaining the selected theme and backup; `Restore` additionally restores the saved Codex base theme. Apply is one-shot: a concurrent second apply is rejected by an atomic per-user lock, and clicking Apply again after a verified active session is a no-op. Neither path closes or restarts Codex.
 
 ## Bundled presets
 
 A fresh install seeds the bundled presets into your theme library, including
-**Gothic Void Crusade**, **桥本有菜 / Arina Hashimoto**, **大乔·遗梦**, and the
-video preset **仰月**.
+**Gothic Void Crusade**, **桥本有菜 / Arina Hashimoto**, **大乔·遗梦**,
+**樱庭绮梦**, **绯夜兔语**, **神社灯火**, **海风霓裳**, and the video preset
+**仰月**.
 Gothic Void Crusade is the default when no active theme exists. Switch to
 Arina Hashimoto with:
 
@@ -109,14 +111,20 @@ Seeding is idempotent. Upgrades remove only retired bundled preset IDs; your
 own `custom-*` themes from “换一张图” and the currently active theme copy are
 never touched.
 
-To contribute a preset, see [`presets/README.md`](./presets/README.md).
+Clicking “应用皮肤” in the menu bar also synchronizes bundled presets and
+hot-refreshes the home-page theme carousel. Newly added packs therefore appear
+under “已保存的主题” without changing the active theme or requiring a restart.
+
+To contribute a preset, see the canonical [`../themes/README.md`](../themes/README.md).
 
 ## Sync a project preset
 
-After adding or editing a `preset-*` directory in this project, sync it directly
-to the current user's Newskin library and apply it—no reinstall required:
+After adding or editing a canonical `themes/preset-*` directory, first generate
+the macOS delivery copy, then sync it directly to the current user's Newskin
+library and apply it—no reinstall required:
 
 ```bash
+node ../tools/sync-theme-catalog.mjs --write
 ./scripts/sync-preset-macos.sh --id preset-yangyue
 ```
 
@@ -210,21 +218,6 @@ Reset to the bundled abstract demo:
 MIT — see `LICENSE`. Additional notices in `NOTICE.md` cover trademarks,
 runtime Node, user-provided artwork, third-party rights, and assets that are not
 licensed under the software license.
-
-## Sponsors
-
-Thanks to **[passion8.cc](https://passion8.cc/register?aff=TuPe)** for sponsoring this project.
-
-<p align="center">
-  <a href="https://passion8.cc/register?aff=TuPe">
-    <img src="../docs/images/sponsor-passion8.png" alt="Passion8" height="96">
-  </a>
-</p>
-
-<p align="center">
-  <a href="https://passion8.cc/register?aff=TuPe"><strong>Passion8｜感谢 passion8.cc 赞助本项目</strong></a><br>
-  AI API 中转站，支持 Codex / Claude Code / Grok 等工具接入。主题与 API 配置互相独立。
-</p>
 
 ## What this is not
 

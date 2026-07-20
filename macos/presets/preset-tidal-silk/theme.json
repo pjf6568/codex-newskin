@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 2,
+  "id": "preset-tidal-silk",
+  "name": "海风霓裳",
+  "brandSubtitle": "CODEX NEWSKIN",
+  "tagline": "海沫、晨金与轻纱色彩，让灵感自由流动。",
+  "projectPrefix": "选择项目 · ",
+  "projectLabel": "◉  选择项目",
+  "statusText": "TIDAL SILK ONLINE",
+  "quote": "MAKE ROOM FOR A LIGHTER CURRENT",
+  "image": "background.jpg",
+  "appearance": "light",
+  "art": {
+    "focusX": 0.53,
+    "focusY": 0.47,
+    "safeArea": "none",
+    "taskMode": "ambient",
+    "immersive": true
+  },
+  "colors": {
+    "background": "#fff5f4",
+    "panel": "#fffafa",
+    "panelAlt": "#f0e8f3",
+    "accent": "#76518f",
+    "accentAlt": "#94c6b8",
+    "secondary": "#477992",
+    "highlight": "#c96f74",
+    "text": "#372d3c",
+    "muted": "#766979",
+    "line": "rgba(118, 81, 143, .30)"
+  },
+  "home": {
+    "enabled": true,
+    "title": "今天想与海风一起完成什么？",
+    "subtitle": "把轻盈的灵感，变成触手可及的成果。",
+    "suggestions": [
+      { "title": "开始一个新项目", "prompt": "帮我规划一个新项目的第一步。" },
+      { "title": "梳理当前任务", "prompt": "帮我梳理当前任务，列出下一步行动。" },
+      { "title": "检查一段代码", "prompt": "帮我检查这段代码的潜在问题。" },
+      { "title": "写一份实施计划", "prompt": "帮我写一份可执行的实施计划。" }
+    ]
+  }
+}

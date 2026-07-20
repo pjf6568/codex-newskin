@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 2,
+  "id": "preset-sakura-garden",
+  "name": "樱庭绮梦",
+  "brandSubtitle": "CODEX NEWSKIN",
+  "tagline": "把樱色晨光与沉静绿意带进工作台。",
+  "projectPrefix": "选择项目 · ",
+  "projectLabel": "◉  选择项目",
+  "statusText": "SAKURA ONLINE",
+  "quote": "LET QUIET BLOSSOMS FRAME THE WORK",
+  "image": "background.jpg",
+  "appearance": "light",
+  "art": {
+    "focusX": 0.69,
+    "focusY": 0.45,
+    "safeArea": "left",
+    "taskMode": "ambient",
+    "immersive": true
+  },
+  "colors": {
+    "background": "#fff8f2",
+    "panel": "#fffdf9",
+    "panelAlt": "#f6e7e1",
+    "accent": "#b56c80",
+    "accentAlt": "#d394a4",
+    "secondary": "#789977",
+    "highlight": "#8d475e",
+    "text": "#38292b",
+    "muted": "#765d62",
+    "line": "rgba(181, 108, 128, .30)"
+  },
+  "home": {
+    "enabled": true,
+    "title": "今天想在樱庭里完成什么？",
+    "subtitle": "让温柔的春光陪你把想法一步步落地。",
+    "suggestions": [
+      { "title": "开始一个新项目", "prompt": "帮我规划一个新项目的第一步。" },
+      { "title": "梳理当前任务", "prompt": "帮我梳理当前任务，列出下一步行动。" },
+      { "title": "检查一段代码", "prompt": "帮我检查这段代码的潜在问题。" },
+      { "title": "写一份实施计划", "prompt": "帮我写一份可执行的实施计划。" }
+    ]
+  }
+}

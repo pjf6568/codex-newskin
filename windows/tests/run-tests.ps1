@@ -6,6 +6,9 @@ $Root = Split-Path -Parent $PSScriptRoot
 . (Join-Path $Root 'scripts\common-windows.ps1')
 . (Join-Path $Root 'scripts\theme-windows.ps1')
 
+& (Get-NewskinNodeRuntime).Path (Join-Path (Split-Path -Parent $Root) 'tools\sync-theme-catalog.mjs')
+if ($LASTEXITCODE -ne 0) { throw 'The canonical theme catalog is not synchronized.' }
+
 $temporaryRoot = Join-Path ([System.IO.Path]::GetTempPath()) "codex-newskin-tests-$PID-$([guid]::NewGuid().ToString('N'))"
 New-Item -ItemType Directory -Path $temporaryRoot | Out-Null
 
@@ -654,12 +657,18 @@ try {
     throw 'Default Windows theme did not seed the Arina Hashimoto wallpaper contract.'
   }
   $preseededThemes = @(Get-NewskinSavedThemes -StateRoot $themeStateRoot)
-  if ($preseededThemes.Count -ne 1 -or
-    $preseededThemes[0].Id -cne 'preset-arina-hashimoto' -or
-    $preseededThemes[0].Name -cne '桥本有菜') {
-    throw 'Arina Hashimoto was not preseeded in the Windows saved-theme menu.'
+  $expectedBundledPresetIds = @(
+    'preset-arina-hashimoto', 'preset-sakura-garden', 'preset-crimson-night',
+    'preset-shrine-lantern', 'preset-tidal-silk'
+  ) | Sort-Object
+  $actualBundledPresetIds = @($preseededThemes | ForEach-Object { $_.Id } | Sort-Object)
+  if ($preseededThemes.Count -ne $expectedBundledPresetIds.Count -or
+    (Compare-Object -ReferenceObject $expectedBundledPresetIds -DifferenceObject $actualBundledPresetIds)) {
+    throw 'Bundled Windows presets were not all preseeded in the saved-theme menu.'
   }
-  $updatedTheme = Set-NewskinActiveTheme -ImagePath (Join-Path $Root 'assets\newskin-reference.jpg') `
+  $featuredImage = Join-Path $Root 'assets\presets\preset-arina-hashimoto\background.jpg'
+  $featuredTheme = Join-Path $Root 'assets\presets\preset-arina-hashimoto\theme.json'
+  $updatedTheme = Set-NewskinActiveTheme -ImagePath $featuredImage `
     -Theme $null -Name '测试主题' -StateRoot $themeStateRoot
   if ($updatedTheme.Theme.name -cne '测试主题' -or
     $updatedTheme.Theme.id -cne 'custom' -or
@@ -671,20 +680,20 @@ try {
   $null = Initialize-NewskinThemeStore -SkillRoot $Root -StateRoot $themeStateRoot
   $idempotentTheme = Read-NewskinTheme -ThemeDirectory $themePaths.Active
   if ($idempotentTheme.Theme.id -cne 'custom' -or
-    @(Get-NewskinSavedThemes -StateRoot $themeStateRoot).Count -ne 1) {
-    throw 'Theme-store initialization overwrote the active custom theme or duplicated its bundled preset.'
+    @(Get-NewskinSavedThemes -StateRoot $themeStateRoot).Count -ne $expectedBundledPresetIds.Count) {
+    throw 'Theme-store initialization overwrote the active custom theme or duplicated its bundled presets.'
   }
   $savedTheme = Save-NewskinCurrentTheme -Name '已保存主题' -StateRoot $themeStateRoot
-  if ($savedTheme.Theme.name -cne '已保存主题' -or @(Get-NewskinSavedThemes -StateRoot $themeStateRoot).Count -ne 2) {
+  if ($savedTheme.Theme.name -cne '已保存主题' -or @(Get-NewskinSavedThemes -StateRoot $themeStateRoot).Count -ne ($expectedBundledPresetIds.Count + 1)) {
     throw 'Saved theme creation or discovery failed.'
   }
   $null = Use-NewskinSavedTheme -ThemeDirectory $savedTheme.Directory -StateRoot $themeStateRoot
 
   $outsideTheme = Join-Path $temporaryRoot 'outside-theme'
   New-Item -ItemType Directory -Path $outsideTheme | Out-Null
-  Copy-Item -LiteralPath (Join-Path $Root 'assets\newskin-reference.jpg') `
-    -Destination (Join-Path $outsideTheme 'newskin-reference.jpg')
-  Copy-Item -LiteralPath (Join-Path $Root 'assets\theme.json') `
+  Copy-Item -LiteralPath $featuredImage `
+    -Destination (Join-Path $outsideTheme 'background.jpg')
+  Copy-Item -LiteralPath $featuredTheme `
     -Destination (Join-Path $outsideTheme 'theme.json')
   $junctionTheme = Join-Path $themePaths.Saved 'junction-escape'
   $null = New-Item -ItemType Junction -Path $junctionTheme -Target $outsideTheme
@@ -871,6 +880,10 @@ try {
   $themeSchemaV2Test = Invoke-NewskinNative -FilePath $node.Path -ArgumentList @(
     (Join-Path $PSScriptRoot 'theme-schema-v2.test.mjs'))
   if ($imageMetadataTest.ExitCode -ne 0) { throw 'Image metadata regression test failed.' }
+  if ($themeSchemaV2Test.ExitCode -ne 0) { throw 'Theme schema v2 regression test failed.' }
+  $themeAssetRegistryTest = Invoke-NewskinNative -FilePath $node.Path -ArgumentList @(
+    (Join-Path (Split-Path -Parent $Root) 'tools\verify-theme-assets.mjs'))
+  if ($themeAssetRegistryTest.ExitCode -ne 0) { throw 'Bundled theme-media registry validation failed.' }
 
   Write-Host 'PASS: config transactions, restore scoping, state safety, argument quoting, and loopback CDP validation.'
 } finally {
