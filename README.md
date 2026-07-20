@@ -12,6 +12,19 @@
 
 > 非 OpenAI 官方产品；Codex 是其权利人持有的商标。
 
+## 主题效果预览
+
+<p align="center">
+  <img src="./showcase/theme-video-workspace.png" alt="视频主题工作台" width="49%">
+  <img src="./showcase/theme-moonlit-window.png" alt="月夜主题首页" width="49%">
+</p>
+<p align="center">
+  <img src="./showcase/theme-sakura-garden.png" alt="樱庭主题首页" width="49%">
+  <img src="./showcase/theme-crimson-night.png" alt="绯夜主题工作台" width="49%">
+</p>
+
+截图展示视频、月夜、樱庭与绯夜等主题在真实 Codex 工作台中的效果；主题始终保留原生侧栏、项目选择、任务与输入框交互。
+
 ## 支持的平台
 
 | 平台 | 入口 | 主要要求 |

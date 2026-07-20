@@ -14,6 +14,19 @@ API keys, or model configuration.
 
 > This is not an OpenAI product. Codex is a trademark of its respective owner.
 
+## Theme gallery
+
+<p align="center">
+  <img src="./showcase/theme-video-workspace.png" alt="Video theme workspace" width="49%">
+  <img src="./showcase/theme-moonlit-window.png" alt="Moonlit theme home screen" width="49%">
+</p>
+<p align="center">
+  <img src="./showcase/theme-sakura-garden.png" alt="Sakura theme home screen" width="49%">
+  <img src="./showcase/theme-crimson-night.png" alt="Crimson theme workspace" width="49%">
+</p>
+
+The gallery shows video, moonlit, sakura, and crimson themes running in a real Codex workspace while preserving native sidebar, project picker, task, and composer interactions.
+
 ## Supported platforms
 
 | Platform | Entry point | Main requirements |
