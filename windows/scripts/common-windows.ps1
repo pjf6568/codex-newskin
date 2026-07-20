@@ -263,7 +263,7 @@ function ConvertTo-NewskinProcessArgument {
   param([Parameter(Mandatory = $true)][AllowEmptyString()][string]$Value)
   if ($Value.Contains('"')) { throw 'Process arguments containing a double quote are not supported.' }
   if ($Value.Length -eq 0) { return '""' }
-  if ($Value -notmatch '\s') { return $Value }
+  if ($Value -notmatch '\s' -and -not $Value.EndsWith('\')) { return $Value }
   $escaped = [regex]::Replace($Value, '(\\+)$', '$1$1')
   return '"' + $escaped + '"'
 }

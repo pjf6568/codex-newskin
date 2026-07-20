@@ -8,6 +8,7 @@ import { readImageMetadata } from "./image-metadata.mjs";
 const scriptPath = fileURLToPath(import.meta.url);
 const here = path.dirname(scriptPath);
 const root = path.resolve(here, "..");
+const DEFAULT_THEME_DIR = path.join(root, "assets", "presets", "preset-arina-hashimoto");
 const SKIN_VERSION = "1.2.0";
 const MAX_ART_BYTES = 16 * 1024 * 1024;
 const MAX_VIDEO_BYTES = 32 * 1024 * 1024;
@@ -26,7 +27,7 @@ function parseArgs(argv) {
     screenshot: null,
     reload: false,
     browserId: null,
-    themeDir: path.join(root, "assets"),
+    themeDir: DEFAULT_THEME_DIR,
     pauseFile: null,
   };
   for (let i = 0; i < argv.length; i += 1) {
@@ -541,7 +542,7 @@ async function activateSavedTheme(themeDir, themeId) {
   }
 }
 
-async function loadPayload(themeDir = path.join(root, "assets"), candidateTheme = null) {
+async function loadPayload(themeDir = DEFAULT_THEME_DIR, candidateTheme = null) {
   const loadedTheme = candidateTheme ?? await loadTheme(themeDir);
   loadedTheme.theme.availableThemes = await listAvailableThemes(themeDir, loadedTheme.theme);
   const [css, template] = await Promise.all([
