@@ -55,6 +55,12 @@ if ! /usr/bin/grep -F -q 'acquire_start_lock' "$ROOT/scripts/start-newskin-macos
   printf 'Start must use the one-shot lock and no-op an already verified active session.\n' >&2
   exit 1
 fi
+if ! /usr/bin/grep -F -q 'Codex Newskin - Pause.command' "$ROOT/scripts/install-newskin-macos.sh" ||
+   ! /usr/bin/grep -F -q 'manage-newskin-macos.sh' "$ROOT/scripts/install-newskin-macos.sh" ||
+   ! /usr/bin/grep -F -q 'Codex Newskin - Pause.command' "$ROOT/scripts/restore-newskin-macos.sh"; then
+  printf 'Desktop apply/pause/restore launchers must share the managed one-click entry point.\n' >&2
+  exit 1
+fi
 if /usr/bin/grep -F -q 'banner_args[@]' "$ROOT/scripts/customize-theme-macos.sh"; then
   printf 'Customize must not expand an empty optional-banner array under macOS Bash 3.2 with nounset enabled.\n' >&2
   exit 1
@@ -78,6 +84,7 @@ fi
 "$NODE" "$ROOT/tests/renderer-inject.test.mjs"
 "$NODE" "$ROOT/tests/theme-stage.test.mjs"
 "$NODE" "$ROOT/tests/theme-schema-v2.test.mjs"
+"$NODE" "$ROOT/../tools/verify-theme-assets.mjs"
 
 # Every bundled preset must be a valid, injectable theme pack with a preset-* id.
 for preset in "$ROOT"/presets/preset-*/; do
@@ -151,14 +158,15 @@ if /usr/bin/printf '%s\n' "$MENU_IMAGE_OUTPUT" | /usr/bin/grep -F -q 'bad'; then
   exit 1
 fi
 
-# seed_bundled_presets is idempotent and must never touch user custom-* packs.
+# seed_bundled_presets is idempotent, retains user custom-* packs, and removes
+# the one explicitly retired legacy theme.
 /usr/bin/env HOME="$TMP/seed-home" /bin/bash -c '
   . "$1/scripts/common-macos.sh"
   ensure_state_root
   themes="$STATE_ROOT/themes"
   /bin/mkdir -p "$themes/custom-keepme"
   : > "$themes/custom-keepme/theme.json"
-  retired="preset-midnight-aurora preset-sakura-dawn preset-amber-dusk preset-forest-mist preset-cyber-neon preset-romantic-rose"
+  retired="preset-midnight-aurora preset-sakura-dawn preset-amber-dusk preset-forest-mist preset-cyber-neon preset-romantic-rose custom-1784444951596"
   for id in $retired; do
     /bin/mkdir -p "$themes/$id"
     : > "$themes/$id/retired-marker"
@@ -171,10 +179,14 @@ fi
   [ -f "$themes/preset-arina-hashimoto/background.jpg" ] || exit 1
   [ -f "$themes/preset-yangyue/theme.json" ] || exit 1
   [ -f "$themes/preset-yangyue/background.mp4" ] || exit 1
+  [ -f "$themes/preset-tidal-silk/theme.json" ] || exit 1
+  [ -f "$themes/preset-sakura-garden/theme.json" ] || exit 1
+  [ -f "$themes/preset-crimson-night/theme.json" ] || exit 1
+  [ -f "$themes/preset-shrine-lantern/theme.json" ] || exit 1
   [ -f "$themes/custom-keepme/theme.json" ] || exit 1
   for id in $retired; do [ ! -e "$themes/$id" ] || exit 1; done
   seeded="$(/usr/bin/find "$themes" -maxdepth 1 -type d -name "preset-*" | /usr/bin/wc -l | /usr/bin/tr -d " ")"
-  [ "$seeded" -eq 4 ] || exit 1
+  [ "$seeded" -eq 8 ] || exit 1
 ' _ "$ROOT"
 
 SYNC_HOME="$TMP/sync-preset-home"
@@ -884,6 +896,7 @@ START_HOME="$TMP/start-home"
   'INJECTOR="$SCRIPT_DIR/injector.mjs"' \
   'fail(){ printf "%s\n" "$*" >&2; exit 1; }' \
   'ensure_state_root(){ /bin/mkdir -p "$STATE_ROOT"; }' \
+  'seed_bundled_presets(){ :; }' \
   'discover_codex_app(){ :; }' \
   'require_signed_node_runtime(){ NODE="/usr/bin/true"; }' \
   'state_field(){ case "$1" in session) printf "active";; port) printf "9341";; injectorPid) printf "123";; injectorStartedAt) printf "fixture";; nodePath) printf "/usr/bin/true";; injectorPath) printf "%s" "$INJECTOR";; esac; }' \

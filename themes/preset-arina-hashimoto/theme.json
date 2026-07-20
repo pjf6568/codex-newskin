@@ -8,18 +8,32 @@
   "projectLabel": "◉  选择项目",
   "statusText": "NEWSKIN ONLINE",
   "quote": "MAKE SOMETHING WONDERFUL",
-  "image": "newskin-reference.jpg",
+  "image": "background.jpg",
   "appearance": "auto",
   "art": {
     "focusX": 0.72,
     "focusY": 0.45,
     "safeArea": "left",
-    "taskMode": "ambient"
+    "taskMode": "ambient",
+    "immersive": true
+  },
+  "colors": {
+    "background": "#fff8f4",
+    "panel": "#fffdfb",
+    "panelAlt": "#f6e8e2",
+    "accent": "#a75362",
+    "accentAlt": "#c47782",
+    "secondary": "#ae7866",
+    "highlight": "#8f3c52",
+    "text": "#382624",
+    "muted": "#7c5c57",
+    "line": "rgba(167, 83, 98, .28)"
   },
   "home": {
     "enabled": true,
-    "title": "今天想把什么变成现实？",
-    "subtitle": "从一个清晰的想法开始，剩下的交给你和 Codex。",
+    "enabled": true,
+    "title": "今天想和有菜一起完成什么？",
+    "subtitle": "从一个清晰的想法开始。",
     "suggestions": [
       { "title": "开始一个新项目", "prompt": "帮我规划一个新项目的第一步。" },
       { "title": "梳理当前任务", "prompt": "帮我梳理当前任务，列出下一步行动。" },

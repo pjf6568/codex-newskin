@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 2,
+  "id": "preset-crimson-night",
+  "name": "绯夜兔语",
+  "brandSubtitle": "CODEX NEWSKIN",
+  "tagline": "深酒红、暖金与城市微光，收束每一次专注。",
+  "projectPrefix": "选择项目 · ",
+  "projectLabel": "◉  选择项目",
+  "statusText": "CRIMSON NIGHT ONLINE",
+  "quote": "FOCUS GLOWS AFTER DARK",
+  "image": "background.jpg",
+  "appearance": "dark",
+  "art": {
+    "focusX": 0.48,
+    "focusY": 0.49,
+    "safeArea": "right",
+    "taskMode": "ambient",
+    "immersive": true
+  },
+  "colors": {
+    "background": "#120c17",
+    "panel": "#211322",
+    "panelAlt": "#32172c",
+    "accent": "#d99a52",
+    "accentAlt": "#f0c77d",
+    "secondary": "#a64c74",
+    "highlight": "#e26b91",
+    "text": "#fff1ed",
+    "muted": "#ceb3b8",
+    "line": "rgba(217, 154, 82, .30)"
+  },
+  "home": {
+    "enabled": true,
+    "title": "今夜想点亮哪一个灵感？",
+    "subtitle": "在深酒红与城市微光里，专注完成下一步。",
+    "suggestions": [
+      { "title": "开始一个新项目", "prompt": "帮我规划一个新项目的第一步。" },
+      { "title": "梳理当前任务", "prompt": "帮我梳理当前任务，列出下一步行动。" },
+      { "title": "检查一段代码", "prompt": "帮我检查这段代码的潜在问题。" },
+      { "title": "写一份实施计划", "prompt": "帮我写一份可执行的实施计划。" }
+    ]
+  }
+}

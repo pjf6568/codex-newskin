@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 2,
+  "id": "preset-yangyue",
+  "name": "仰月",
+  "brandSubtitle": "CODEX NEWSKIN",
+  "tagline": "让流动的月色陪伴每一次专注。",
+  "projectPrefix": "选择项目 · ",
+  "projectLabel": "◉  选择项目",
+  "statusText": "MOONLIGHT ONLINE",
+  "quote": "WORK BY THE QUIET MOON",
+  "image": "background.mp4",
+  "mediaType": "video",
+  "appearance": "dark",
+  "art": {
+    "safeArea": "none",
+    "taskMode": "ambient",
+    "immersive": true
+  },
+  "colors": {
+    "background": "#1d100c",
+    "panel": "#2b1711",
+    "panelAlt": "#43251b",
+    "accent": "#e7aa70",
+    "accentAlt": "#ffd3a4",
+    "secondary": "#c98970",
+    "highlight": "#efbf97",
+    "text": "#fff0df",
+    "muted": "#d8af96",
+    "line": "rgba(231, 170, 112, .30)"
+  },
+  "home": {
+    "enabled": true,
+    "title": "今夜想在月色下完成什么？",
+    "subtitle": "从一个安静而清晰的目标开始。",
+    "suggestions": [
+      { "title": "开始一个新项目", "prompt": "帮我规划一个新项目的第一步。" },
+      { "title": "梳理当前任务", "prompt": "帮我梳理当前任务，列出下一步行动。" },
+      { "title": "检查一段代码", "prompt": "帮我检查这段代码的潜在问题。" },
+      { "title": "写一份实施计划", "prompt": "帮我写一份可执行的实施计划。" }
+    ]
+  }
+}

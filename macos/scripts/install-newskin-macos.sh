@@ -27,6 +27,7 @@ deploy_project() {
   /usr/bin/rsync -a \
     --exclude '.git/' \
     --exclude '.DS_Store' \
+    --exclude 'client-delivery/' \
     --exclude 'release/' \
     --exclude 'runtime/' \
     "$PROJECT_ROOT/" "$temporary/"
@@ -80,20 +81,20 @@ write_launcher() {
 
 if [ "$CREATE_LAUNCHERS" = "true" ]; then
   /bin/mkdir -p "$HOME/Desktop"
-  start_script="$(shell_quote "$SCRIPT_DIR/start-newskin-macos.sh")"
+  manager_script="$(shell_quote "$SCRIPT_DIR/manage-newskin-macos.sh")"
   customize_script="$(shell_quote "$SCRIPT_DIR/customize-theme-macos.sh")"
   verify_script="$(shell_quote "$SCRIPT_DIR/verify-newskin-macos.sh")"
-  restore_script="$(shell_quote "$SCRIPT_DIR/restore-newskin-macos.sh")"
   screenshot="$(shell_quote "$HOME/Desktop/Codex Newskin Verification.png")"
-  write_launcher "$HOME/Desktop/Codex Newskin.command" "exec $start_script --port $PORT --prompt-restart"
+  write_launcher "$HOME/Desktop/Codex Newskin.command" "exec $manager_script apply --port $PORT"
   write_launcher "$HOME/Desktop/Codex Newskin - Customize.command" "exec $customize_script"
   write_launcher "$HOME/Desktop/Codex Newskin - Verify.command" "$verify_script --screenshot $screenshot && /usr/bin/open $screenshot"
-  write_launcher "$HOME/Desktop/Codex Newskin - Restore.command" "exec $restore_script --restore-base-theme --restart-codex"
+  write_launcher "$HOME/Desktop/Codex Newskin - Pause.command" "exec $manager_script pause --port $PORT"
+  write_launcher "$HOME/Desktop/Codex Newskin - Restore.command" "exec $manager_script restore --port $PORT"
 fi
 
 printf 'Codex Newskin %s installed at %s for Codex %s using its signed Node.js %s.\n' \
   "$SKIN_VERSION" "$PROJECT_ROOT" "$CODEX_VERSION" "$NODE_VERSION"
-printf 'Use the Desktop launchers to customize, start, verify, or restore the official appearance.\n'
+printf 'Use the Desktop launchers to apply, pause, customize, verify, or restore the official appearance.\n'
 printf 'Bundled presets are ready in your theme library — pick one from the menu bar (已保存的主题) or switch-theme.\n'
 
 if [ "$LAUNCH_AFTER_INSTALL" = "true" ]; then

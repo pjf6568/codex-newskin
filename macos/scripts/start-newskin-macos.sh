@@ -102,6 +102,10 @@ case "$PORT" in ''|*[!0-9]*) fail "Invalid port: $PORT" ;; esac
 [ "$PORT" -ge 1024 ] && [ "$PORT" -le 65535 ] || fail "Port must be between 1024 and 65535."
 
 ensure_state_root
+# Keep the saved-theme library in sync before composing the renderer payload.
+# The empty-home switcher reads this library, not the project presets directly;
+# without this step newly bundled packs only appeared after a full reinstall.
+seed_bundled_presets
 acquire_start_lock
 discover_codex_app
 require_signed_node_runtime

@@ -15,20 +15,23 @@ It does **not** grant rights to:
 
 ## Demo artwork
 
-`assets/portal-hero.png` is original abstract geometric art generated for this open-source repository (no characters). Replace it with your own image before shipping a branded theme to customers.
+`../themes/templates/base-newskin/portal-hero.png` is original abstract geometric art generated for this open-source repository (no characters). Replace it with your own image before shipping a branded theme to customers.
 
 ## Arina Hashimoto reference material
 
 The following user/maintainer-supplied files are excluded from the MIT software license:
 
-- `presets/preset-arina-hashimoto/background.jpg`
-- `../windows/assets/newskin-reference.jpg`
+- `../themes/preset-arina-hashimoto/background.jpg`
+- `../themes/preset-sakura-garden/background.jpg`
+- `../themes/preset-crimson-night/background.jpg`
+- `../themes/preset-shrine-lantern/background.jpg`
+- `../themes/preset-tidal-silk/background.jpg`
 
 They are included at the maintainer's direction as local theme assets. They are not official OpenAI/Codex artwork. The preset name is a maintainer label and does not imply the named person's participation, approval, or endorsement. Their inclusion does not certify or grant third-party likeness, model-output, or redistribution rights. Downstream redistribution and commercial use require an independent rights review.
 
 ## 仰月 video material
 
-`presets/preset-yangyue/background.mp4` is user-supplied material and is excluded from the MIT software license. Its inclusion does not grant third-party redistribution or commercial-use rights; downstream users must independently confirm that they have permission to use it.
+`../themes/preset-yangyue/background.mp4` is user-supplied material and is excluded from the MIT software license. Its inclusion does not grant third-party redistribution or commercial-use rights; downstream users must independently confirm that they have permission to use it.
 
 ## Runtime
 

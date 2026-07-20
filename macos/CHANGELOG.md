@@ -96,11 +96,6 @@
 ### 视觉
 
 - 以原版暗色 portal CSS 为结构底，叠加 light 壳与更薄横幅遮罩，减轻「换图看不清」
-- 示例纯横幅：`docs/images/banner-arina-hashimoto-pure-no-ui.png`（无人机 UI 合成）
-
-### 说明
-
-- `docs/images/gallery/` 仅为效果预览，不要当 `theme` 背景导入
 
 ---
 

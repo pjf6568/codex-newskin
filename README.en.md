@@ -61,14 +61,15 @@ tray, and restore/uninstall instructions.
 ## Repository layout
 
 ```text
+themes/     the only editable theme packs, media, and cross-platform registry
 macos/      macOS installation, theme management, menu-bar utility, presets, and tests
 windows/    Windows installation, theme tray, theme management, and tests
 .github/    Issue, pull-request, and continuous-integration configuration
 ```
 
-Each verified preset includes a background file and `theme.json`. See
-[`macos/presets/README.md`](./macos/presets/README.md) for the macOS preset
-format.
+Every verified theme keeps its configuration and background media only in
+[`themes/`](./themes/README.md). The macOS and Windows preset folders are
+generated delivery copies.
 
 ## Verification
 
@@ -76,6 +77,12 @@ macOS:
 
 ```bash
 (cd macos && npm test)
+```
+
+Theme catalog synchronization:
+
+```bash
+node tools/sync-theme-catalog.mjs
 ```
 
 Windows:

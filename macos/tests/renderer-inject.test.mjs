@@ -25,6 +25,11 @@ assert.doesNotMatch(
   /background-image:\s*var\(--newskin-art\),\s*var\(--newskin-art\)/,
   "The home hero must not stack duplicate copies of the selected image.",
 );
+assert.match(
+  css,
+  /\.newskin-home \[data-feature="game-source"\] button::before\s*\{[\s\S]{0,260}content:\s*none;/,
+  "The new-task project control must show the chosen project without a duplicate 选择项目 prefix.",
+);
 assert.match(template, /document\.createElement\("video"\)[\s\S]{0,1000}video\.muted\s*=\s*true[\s\S]{0,180}video\.loop\s*=\s*true/,
   "Video themes must render as muted, looping native video elements rather than CSS backgrounds.");
 assert.match(template, /video\.pause\(\)[\s\S]{0,180}video\?\.remove\(\)/,
@@ -145,6 +150,11 @@ assert.match(
   template,
   /const controlRoleForNode[\s\S]{0,2300}const inMenu = Boolean\(node\.closest\?\.\('\[role="menu"\], \[role="listbox"\], \[data-radix-popper-content-wrapper\]'\)\);[\s\S]{0,500}return node\.matches\?\.[\s\S]{0,260}\? "menuCurrent" : "menuItem";/,
   "Dropdown menus must use the same ordinary-item/current-item semantic split as navigation.",
+);
+assert.match(
+  template,
+  /homeSuggestion:\s*\{[\s\S]{0,180}background:\s*"transparent"[\s\S]{0,160}border:\s*"transparent"[\s\S]{0,1000}const controlRoleForNode[\s\S]{0,500}group\/home-suggestions[\s\S]{0,120}return "homeSuggestion";/,
+  "Home suggestions must receive a transparent inline control role before the generic secondary-button fallback.",
 );
 assert.match(
   template,
@@ -275,6 +285,16 @@ assert.match(
   css,
   /home-suggestions button \[class~="text-token-text-primary"\]\s*\{[\s\S]{0,80}color:\s*var\(--ds-text\) !important;/,
   "Home suggestion labels must override native light-shell text tokens with the selected theme color.",
+);
+assert.match(
+  css,
+  /\.newskin-home \.group\\\/home-suggestions button\s*\{[\s\S]{0,900}border:\s*0 !important;[\s\S]{0,220}background:\s*transparent !important;[\s\S]{0,340}box-shadow:\s*none !important;/,
+  "New-task suggestion buttons must remain clickable while leaving the wallpaper unobscured.",
+);
+assert.match(
+  css,
+  /data-dream-art-wide="true"\][\s\S]{0,180}\.newskin-home \.group\\\/home-suggestions button\s*\{[\s\S]{0,320}background:\s*transparent !important;[\s\S]{0,140}border:\s*0 !important;[\s\S]{0,140}box-shadow:\s*none !important;/,
+  "Wide-image home rules must not restore a translucent card surface over transparent suggestions.",
 );
 assert.match(
   css,

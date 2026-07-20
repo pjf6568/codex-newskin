@@ -12,7 +12,8 @@ import {
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const windowsRoot = path.resolve(here, "..");
-const featured = await fs.readFile(path.join(windowsRoot, "assets", "newskin-reference.jpg"));
+const featuredPath = path.join(windowsRoot, "assets", "presets", "preset-arina-hashimoto", "background.jpg");
+const featured = await fs.readFile(featuredPath);
 const helper = path.join(windowsRoot, "scripts", "image-metadata.mjs");
 
 assert.deepEqual(readImageMetadata(featured, ".jpg"), {
@@ -24,7 +25,7 @@ assert.deepEqual(readImageMetadata(featured, ".jpg"), {
   taskMode: "ambient",
 });
 
-const cli = spawnSync(process.execPath, [helper, "--check", path.join(windowsRoot, "assets", "newskin-reference.jpg")], {
+const cli = spawnSync(process.execPath, [helper, "--check", featuredPath], {
   encoding: "utf8",
 });
 assert.equal(cli.status, 0);

@@ -126,10 +126,18 @@ function Install-NewskinRuntimeEngine {
   $fullStateRoot = [System.IO.Path]::GetFullPath($StateRoot)
   $engine = Get-NewskinRuntimeEnginePaths -StateRoot $fullStateRoot
   $required = @(
-    'assets\newskin-reference.jpg',
     'assets\newskin.css',
     'assets\renderer-inject.js',
-    'assets\theme.json',
+    'assets\presets\preset-arina-hashimoto\background.jpg',
+    'assets\presets\preset-arina-hashimoto\theme.json',
+    'assets\presets\preset-sakura-garden\background.jpg',
+    'assets\presets\preset-sakura-garden\theme.json',
+    'assets\presets\preset-crimson-night\background.jpg',
+    'assets\presets\preset-crimson-night\theme.json',
+    'assets\presets\preset-shrine-lantern\background.jpg',
+    'assets\presets\preset-shrine-lantern\theme.json',
+    'assets\presets\preset-tidal-silk\background.jpg',
+    'assets\presets\preset-tidal-silk\theme.json',
     'scripts\common-windows.ps1',
     'scripts\config-utf8.ps1',
     'scripts\image-metadata.mjs',

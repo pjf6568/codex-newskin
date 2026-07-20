@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "description": "Canonical catalog for every bundled Codex Newskin theme and its platform availability. Theme packs here are the only editable source; platform preset directories are generated delivery copies.",
+  "themes": [
+    { "id": "preset-arina-hashimoto", "platforms": ["macos", "windows"] },
+    { "id": "preset-crimson-night", "platforms": ["macos", "windows"] },
+    { "id": "preset-daqiao-yimeng", "platforms": ["macos"] },
+    { "id": "preset-gothic-void-crusade", "platforms": ["macos"] },
+    { "id": "preset-sakura-garden", "platforms": ["macos", "windows"] },
+    { "id": "preset-shrine-lantern", "platforms": ["macos", "windows"] },
+    { "id": "preset-tidal-silk", "platforms": ["macos", "windows"] },
+    { "id": "preset-yangyue", "platforms": ["macos"] }
+  ],
+  "templates": [
+    { "id": "base-newskin", "platform": "macos", "output": "assets" }
+  ]
+}

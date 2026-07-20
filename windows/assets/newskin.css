@@ -371,6 +371,12 @@ html.codex-newskin.dream-safe-center .dream-home > div:first-child > div:first-c
   margin: 0;
   color: var(--dream-text);
 }
+.newskin-ip-switcher {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+}
 .newskin-ip-controls {
   position: static;
   display: flex;
@@ -379,7 +385,9 @@ html.codex-newskin.dream-safe-center .dream-home > div:first-child > div:first-c
   flex-wrap: nowrap;
   gap: 5px;
   max-width: none;
-  overflow-x: auto;
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow-x: hidden;
   overscroll-behavior-x: contain;
   scrollbar-width: thin;
   min-height: 0;
@@ -396,6 +404,21 @@ html.codex-newskin.dream-safe-center .dream-home > div:first-child > div:first-c
   font-size: 11px;
   flex: 0 0 auto;
 }
+.newskin-ip-scroll-button {
+  flex: 0 0 24px;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 1px solid var(--dream-line);
+  border-radius: 999px;
+  color: var(--dream-text);
+  background: color-mix(in oklab, var(--dream-surface-raised) 82%, transparent);
+  font: inherit;
+  font-size: 17px;
+  line-height: 1;
+  cursor: pointer;
+}
+.newskin-ip-scroll-button:hover { border-color: var(--dream-accent); background: var(--dream-accent-soft); }
 @media (max-width: 720px) {
   .newskin-ip-layer { top: 10px; right: 10px; width: calc(100% - 20px); max-width: none; margin: 0; }
   .newskin-ip-controls { position: static; padding: 4px; justify-content: flex-start; }
